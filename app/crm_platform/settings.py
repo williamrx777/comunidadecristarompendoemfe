@@ -81,13 +81,15 @@ WSGI_APPLICATION = 'crm_platform.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',  # Substitua pelo nome do seu banco de dados
-        'USER': 'postgres.gudfmhvqzmnvywbwoiwk',    # Substitua pelo seu usuário do banco
-        'PASSWORD': 'ZzAw1@Kg58#',  # Substitua pela senha do usuário
-        'HOST': 'aws-0-us-west-1.pooler.supabase.com',      # Ou o IP/URL do servidor do banco
-        'PORT': '6543',           # A porta padrão do PostgreSQL
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": os.environ.get('DB_HOST', 'db'),
+        # We put the host in an environment variable because Defang
+        # detects hostnames that match service names and makes sure they
+        # are properly configured to communicate when deployed
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
     }
 }
 
